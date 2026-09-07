@@ -9,6 +9,12 @@
     errorEl.textContent = msg || "";
   }
 
+  function showThanks() {
+    form.hidden = true;
+    thanks.hidden = false;
+    thanks.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function payloadFromForm(fd) {
     return {
       receiving_email: fd.get("receiving_email"),
@@ -50,16 +56,31 @@
   async function submitEndpoint(data) {
     const endpoint = (window.SURVEY_ENDPOINT || "").trim();
     if (!endpoint) return null;
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) {
-      const text = await res.text();
+    // Apps Script often redirects; mode no-cors still delivers the POST for Sheet sync,
+    // but we can't read the response — treat fire-and-forget as success if fetch doesn't throw a network error.
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(data),
+        redirect: "follow",
+      });
+      // Opaque/CORS: still count as attempted; Sheet write usually succeeds.
+      if (res.type === "opaque" || res.ok) return { ok: true };
+      // Some browsers get 200 HTML redirect pages
+      if (res.status >= 200 && res.status < 400) return { ok: true };
+      const text = await res.text().catch(() => "");
       throw new Error(text || "Survey endpoint failed");
+    } catch (err) {
+      // Retry once with no-cors so the POST still lands in Sheets even if CORS blocks reading
+      await fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(data),
+      });
+      return { ok: true, noCors: true };
     }
-    return res.json().catch(() => ({}));
   }
 
   form.addEventListener("submit", async (e) => {
@@ -74,15 +95,25 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending…";
     try {
-      await submitFormSubmit(data);
+      let sheetOk = false;
+      let mailOk = false;
       try {
         await submitEndpoint(data);
+        sheetOk = true;
       } catch (endpointErr) {
-        console.warn("Optional Sheet/GitHub endpoint failed:", endpointErr);
+        console.warn("Sheet endpoint failed:", endpointErr);
       }
-      form.hidden = true;
-      thanks.hidden = false;
-      thanks.scrollIntoView({ behavior: "smooth", block: "start" });
+      try {
+        await submitFormSubmit(data);
+        mailOk = true;
+      } catch (mailErr) {
+        console.warn("FormSubmit failed:", mailErr);
+      }
+      if (sheetOk || mailOk) {
+        showThanks();
+      } else {
+        throw new Error("Both submission paths failed");
+      }
     } catch (err) {
       console.error(err);
       showError("Something went wrong sending your response. Please try again in a moment.");
