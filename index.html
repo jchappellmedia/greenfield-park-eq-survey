@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Greenfield Park Ward Elders Quorum communication preferences survey" />
+  <meta name="description" content="Anonymous Greenfield Park Ward Elders Quorum communication preferences survey" />
   <title>EQ Communication Survey · Greenfield Park Ward</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -13,32 +13,16 @@
       <p class="eyebrow">Greenfield Park Ward</p>
       <h1>Elders Quorum Communication Survey</h1>
       <p class="lede">
-        Help us communicate better. We’ll do our best to honor how you prefer to be reached,
-        while still sharing important quorum messages with the group when needed.
+        Help us communicate better. This survey is <strong>anonymous</strong> — we won’t ask for your name,
+        email, or phone. We’ll use the results to improve how the quorum shares information.
       </p>
       <p class="privacy">
-        Responses go to Elders Quorum leadership only. If your email is marked private in the
-        Church directory, we will respect that and won’t put it on shared lists.
+        No identifying information is collected. We’ll still communicate important items to the group at large when needed,
+        and we’ll do our best to honor what works for most of the quorum.
       </p>
     </header>
 
     <form id="survey-form" novalidate>
-      <section class="card">
-        <h2>About you</h2>
-        <label>
-          Full name <span class="req">*</span>
-          <input name="name" type="text" autocomplete="name" required placeholder="First and last name" />
-        </label>
-        <label>
-          Email <span class="req">*</span>
-          <input name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
-        </label>
-        <label>
-          Cell phone <span class="req">*</span>
-          <input name="phone" type="tel" autocomplete="tel" required placeholder="(480) 555-1234" />
-        </label>
-      </section>
-
       <section class="card">
         <h2>What are you receiving today?</h2>
         <fieldset>
@@ -115,22 +99,22 @@
       <section class="card">
         <h2>Anything else?</h2>
         <label>
-          Optional notes
-          <textarea name="notes" rows="4" placeholder="Timing, household details, etc."></textarea>
+          Optional notes <span class="muted-inline">(still anonymous — please don’t include your name)</span>
+          <textarea name="notes" rows="4" placeholder="Timing preferences, general feedback, etc."></textarea>
         </label>
       </section>
 
       <p id="form-error" class="error" hidden></p>
-      <button type="submit" id="submit-btn" class="primary">Submit survey</button>
+      <button type="submit" id="submit-btn" class="primary">Submit anonymous survey</button>
     </form>
 
     <section id="thanks" class="card thanks" hidden>
       <h2>Thank you</h2>
-      <p>We received your preferences. The Elders Quorum presidency will use this to improve how we communicate.</p>
+      <p>Your anonymous response was received. It helps the Elders Quorum presidency communicate more effectively.</p>
     </section>
 
     <footer class="foot">
-      <p>Greenfield Park Ward · Elders Quorum</p>
+      <p>Greenfield Park Ward · Elders Quorum · Anonymous survey</p>
     </footer>
   </main>
   <script src="config.js"></script>
