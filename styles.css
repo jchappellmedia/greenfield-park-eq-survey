@@ -138,3 +138,5 @@ fieldset {
   font-size: 0.9rem;
   margin-top: 1.5rem;
 }
+
+.muted-inline { font-weight: 500; color: var(--muted); font-size: 0.9rem; }
