@@ -11,9 +11,6 @@
 
   function payloadFromForm(fd) {
     return {
-      name: fd.get("name").trim(),
-      email: fd.get("email").trim(),
-      phone: fd.get("phone").trim(),
       receiving_email: fd.get("receiving_email"),
       receiving_text: fd.get("receiving_text"),
       prefer_announcements: fd.get("prefer_announcements"),
@@ -21,7 +18,8 @@
       prefer_activities: fd.get("prefer_activities"),
       prefer_lessons: fd.get("prefer_lessons"),
       notes: (fd.get("notes") || "").trim(),
-      source: "github-pages-survey",
+      anonymous: true,
+      source: "github-pages-survey-anonymous",
       submitted_at: new Date().toISOString(),
     };
   }
@@ -30,7 +28,7 @@
     const email = window.FORMSUBMIT_EMAIL || "jchappellmedia@gmail.com";
     const body = {
       ...data,
-      _subject: `EQ Survey Response — ${data.name}`,
+      _subject: "EQ Anonymous Survey Response",
       _template: "table",
       _captcha: "false",
     };
@@ -69,7 +67,7 @@
     showError("");
     if (!form.checkValidity()) {
       form.reportValidity();
-      showError("Please fill in the required fields.");
+      showError("Please answer the required questions.");
       return;
     }
     const data = payloadFromForm(new FormData(form));
@@ -89,7 +87,7 @@
       console.error(err);
       showError("Something went wrong sending your response. Please try again in a moment.");
       submitBtn.disabled = false;
-      submitBtn.textContent = "Submit survey";
+      submitBtn.textContent = "Submit anonymous survey";
     }
   });
 })();
