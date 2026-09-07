@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Greenfield Park Ward Elders Quorum communication preferences survey" />
+  <title>EQ Communication Survey · Greenfield Park Ward</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Greenfield Park Ward</p>
+      <h1>Elders Quorum Communication Survey</h1>
+      <p class="lede">
+        Help us communicate better. We’ll do our best to honor how you prefer to be reached,
+        while still sharing important quorum messages with the group when needed.
+      </p>
+      <p class="privacy">
+        Responses go to Elders Quorum leadership only. If your email is marked private in the
+        Church directory, we will respect that and won’t put it on shared lists.
+      </p>
+    </header>
+
+    <form id="survey-form" novalidate>
+      <section class="card">
+        <h2>About you</h2>
+        <label>
+          Full name <span class="req">*</span>
+          <input name="name" type="text" autocomplete="name" required placeholder="First and last name" />
+        </label>
+        <label>
+          Email <span class="req">*</span>
+          <input name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+        </label>
+        <label>
+          Cell phone <span class="req">*</span>
+          <input name="phone" type="tel" autocomplete="tel" required placeholder="(480) 555-1234" />
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>What are you receiving today?</h2>
+        <fieldset>
+          <legend>Are you currently getting church / ward emails?</legend>
+          <div class="choices">
+            <label class="chip"><input type="radio" name="receiving_email" value="Yes" required /> Yes</label>
+            <label class="chip"><input type="radio" name="receiving_email" value="No" /> No</label>
+            <label class="chip"><input type="radio" name="receiving_email" value="Not sure" /> Not sure</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Are you currently getting church / ward texts?</legend>
+          <div class="choices">
+            <label class="chip"><input type="radio" name="receiving_text" value="Yes" required /> Yes</label>
+            <label class="chip"><input type="radio" name="receiving_text" value="No" /> No</label>
+            <label class="chip"><input type="radio" name="receiving_text" value="Not sure" /> Not sure</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="card">
+        <h2>Preferred ways to hear from us</h2>
+        <p class="hint">Pick what works best for each kind of message.</p>
+
+        <label>
+          General quorum announcements <span class="req">*</span>
+          <select name="prefer_announcements" required>
+            <option value="">Select…</option>
+            <option>Email</option>
+            <option>Text</option>
+            <option>Phone call</option>
+            <option>ChurchofJesusChrist.org app</option>
+            <option>Prefer not to receive this type</option>
+          </select>
+        </label>
+
+        <label>
+          Ministering / urgent needs <span class="req">*</span>
+          <select name="prefer_ministering" required>
+            <option value="">Select…</option>
+            <option>Email</option>
+            <option>Text</option>
+            <option>Phone call</option>
+            <option>ChurchofJesusChrist.org app</option>
+            <option>Prefer not to receive this type</option>
+          </select>
+        </label>
+
+        <label>
+          Activities &amp; events <span class="req">*</span>
+          <select name="prefer_activities" required>
+            <option value="">Select…</option>
+            <option>Email</option>
+            <option>Text</option>
+            <option>Phone call</option>
+            <option>ChurchofJesusChrist.org app</option>
+            <option>Prefer not to receive this type</option>
+          </select>
+        </label>
+
+        <label>
+          Lessons / spiritual materials <span class="req">*</span>
+          <select name="prefer_lessons" required>
+            <option value="">Select…</option>
+            <option>Email</option>
+            <option>Text</option>
+            <option>Phone call</option>
+            <option>ChurchofJesusChrist.org app</option>
+            <option>Prefer not to receive this type</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Anything else?</h2>
+        <label>
+          Optional notes
+          <textarea name="notes" rows="4" placeholder="Timing, household details, etc."></textarea>
+        </label>
+      </section>
+
+      <p id="form-error" class="error" hidden></p>
+      <button type="submit" id="submit-btn" class="primary">Submit survey</button>
+    </form>
+
+    <section id="thanks" class="card thanks" hidden>
+      <h2>Thank you</h2>
+      <p>We received your preferences. The Elders Quorum presidency will use this to improve how we communicate.</p>
+    </section>
+
+    <footer class="foot">
+      <p>Greenfield Park Ward · Elders Quorum</p>
+    </footer>
+  </main>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
