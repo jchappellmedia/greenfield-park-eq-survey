@@ -3,18 +3,19 @@
  * Script Properties:
  *   GITHUB_TOKEN = classic PAT with repo scope (creates Issues)
  *   GITHUB_REPO  = jchappellmedia/greenfield-park-eq-survey
- *   SHEET_ID     = 19OMoon2nOutd1x5H_1mwMF1Vb5OIJ0GLqZxeEMSVwbU
+ *   SHEET_ID     = 1TUIK5Ti7fenO6js4o9Omu5tStEO8t4a4ifxDCPPoyM8
  *
  * Then paste the /exec URL into config.js as window.SURVEY_ENDPOINT.
  */
 function doPost(e) {
   const data = JSON.parse(e.postData.contents || "{}");
   const props = PropertiesService.getScriptProperties();
-  const sheetId = props.getProperty("SHEET_ID") || "19OMoon2nOutd1x5H_1mwMF1Vb5OIJ0GLqZxeEMSVwbU";
+  const sheetId = props.getProperty("SHEET_ID") || "1TUIK5Ti7fenO6js4o9Omu5tStEO8t4a4ifxDCPPoyM8";
   const repo = props.getProperty("GITHUB_REPO") || "jchappellmedia/greenfield-park-eq-survey";
   const token = props.getProperty("GITHUB_TOKEN");
 
-  const sheet = SpreadsheetApp.openById(sheetId).getSheets()[0];
+  const ss = SpreadsheetApp.openById(sheetId);
+  const sheet = ss.getSheetByName('Survey Responses') || ss.getSheets()[0];
   sheet.appendRow([
     data.submitted_at || new Date().toISOString(),
     data.name || "",
